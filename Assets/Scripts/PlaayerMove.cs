@@ -6,7 +6,7 @@ public class PlaayerMove : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
-    private Vector2 targerPosition = Vector2.zero;
+    private Vector2 targerPosition = new Vector2(0,-10);
     void Start()
     {
         
@@ -19,6 +19,6 @@ public class PlaayerMove : MonoBehaviour
             targerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         //transform.position = targerPosition;
-        transform.localPosition = Vector2.MoveTowards(transform.localPosition, targerPosition, speed * Time.deltaTime); ;
+        transform.localPosition = Vector2.MoveTowards(transform.localPosition, targerPosition, speed * Time.deltaTime);
     }
 }
