@@ -15,7 +15,11 @@ public class PlaayerMove : MonoBehaviour
     [SerializeField]
     private float deleydadada;
     [SerializeField]
+    private float deleydododododo;
+    [SerializeField]
     private float deleyfirehi;
+    [SerializeField]
+    private float barssadeley=0.2f;
 
     [SerializeField]
     private float speed = 5f;
@@ -37,6 +41,8 @@ public class PlaayerMove : MonoBehaviour
             deleydadada-=Time.deltaTime;
         if (deleyfirehi>0f)
             deleyfirehi-=Time.deltaTime;
+        if (deleydododododo>0f)
+            deleydododododo-=Time.deltaTime;
         if (Input.GetMouseButton(0))
         {
             targerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -52,6 +58,11 @@ public class PlaayerMove : MonoBehaviour
             if (deleydadada<=0f)   
                 StartCoroutine(dadada());
         }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (deleydododododo<=0f)   
+                StartCoroutine(dododododo());
+        }
         
         transform.localPosition = Vector2.MoveTowards(transform.localPosition, targerPosition, speed * Time.deltaTime);
     }
@@ -61,7 +72,7 @@ public class PlaayerMove : MonoBehaviour
         while(true){
             bullet = Instantiate(bulletPrefab,bulletPosition);
             bullet.transform.SetParent(null);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(barssadeley);
         }
 
     }
@@ -73,6 +84,14 @@ public class PlaayerMove : MonoBehaviour
         Instantiate(misa).transform.position=bulletPosition.position;
         jumug.SetActive(false);
 
+    }
+    private IEnumerator dododododo(){
+        deleydododododo=5;
+        animator.SetBool("기관총발싸",true);
+        barssadeley = 0.05f;
+        yield return new WaitForSeconds(4f);
+        animator.SetBool("기관총발싸",false);
+        barssadeley = 0.2f;
     }
     private IEnumerator dadada(){
         deleydadada=5;
