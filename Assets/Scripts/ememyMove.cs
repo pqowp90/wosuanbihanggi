@@ -8,6 +8,8 @@ public class ememyMove : MonoBehaviour
     private bool isdamaged;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private GameObject particle;
     float hp=100;
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class ememyMove : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision){
         if (collision.CompareTag("lazer")){
+            Instantiate(particle).transform.position=transform.position;
             Destroy(gameObject);
         }
         if (collision.CompareTag("Bullet")){
@@ -31,10 +34,10 @@ public class ememyMove : MonoBehaviour
                 if (isdamaged) return;
                 isdamaged=true;
                 StartCoroutine(damaged());
-                return;
+                if(hp>0) return;
             }
             //hp-=50;
-            
+            Instantiate(particle).transform.position=transform.position;
             Destroy(gameObject);
         }
     }

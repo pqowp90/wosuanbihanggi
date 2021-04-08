@@ -9,7 +9,13 @@ public class PlaayerMove : MonoBehaviour
     [SerializeField]
     private GameObject bulletPrefab = null;
     [SerializeField]
+    private GameObject dadadadadada = null;
+    [SerializeField]
     private GameObject jumug = null;
+    [SerializeField]
+    private float deleydadada;
+    [SerializeField]
+    private float deleyfirehi;
 
     [SerializeField]
     private float speed = 5f;
@@ -18,20 +24,31 @@ public class PlaayerMove : MonoBehaviour
     Animator animator;
     void Start()
     {
+        Application.targetFrameRate = 60;
         animator = GetComponent<Animator>();
         StartCoroutine(Fire());
     }
 
     void Update()
     {
+        if (deleydadada>0f)
+            deleydadada-=Time.deltaTime;
+        if (deleyfirehi>0f)
+            deleyfirehi-=Time.deltaTime;
         if (Input.GetMouseButton(0))
         {
             targerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(Firehihi());
+            if (deleyfirehi<=0f)
+                StartCoroutine(Firehihi());
             
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (deleydadada<=0f)   
+                StartCoroutine(dadada());
         }
         
         transform.localPosition = Vector2.MoveTowards(transform.localPosition, targerPosition, speed * Time.deltaTime);
@@ -47,11 +64,19 @@ public class PlaayerMove : MonoBehaviour
 
     }
     private IEnumerator Firehihi(){
+        deleyfirehi=7;
         jumug.SetActive(true);
         animator.SetTrigger("때렸다");
         yield return new WaitForSeconds(1f);
         Instantiate(misa).transform.position=bulletPosition.position;
         jumug.SetActive(false);
+
+    }
+    private IEnumerator dadada(){
+        deleydadada=5;
+        dadadadadada.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        dadadadadada.SetActive(false);
 
     }
 }
