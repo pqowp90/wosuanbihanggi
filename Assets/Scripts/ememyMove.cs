@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ememyMove : MonoBehaviour
 {
+    private GameManager gameManager = null;
+    [SerializeField]
+    private long score = 9;
     [SerializeField]
     private bool isdamaged;
     [SerializeField]
@@ -14,7 +17,7 @@ public class ememyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public class ememyMove : MonoBehaviour
             }
             //hp-=50;
             Instantiate(particle).transform.position=transform.position;
+            gameManager.AddScore(score);
             Destroy(gameObject);
         }
     }

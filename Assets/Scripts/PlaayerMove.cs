@@ -20,10 +20,12 @@ public class PlaayerMove : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
     private Vector2 targerPosition = new Vector2(0,-10);
+    private GameManager gameManager = null;
     public GameObject misa;
     Animator animator;
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         Application.targetFrameRate = 60;
         animator = GetComponent<Animator>();
         StartCoroutine(Fire());
@@ -78,5 +80,10 @@ public class PlaayerMove : MonoBehaviour
         yield return new WaitForSeconds(4f);
         dadadadadada.SetActive(false);
 
+    }
+    void OnTriggerEnter2D(Collider2D other){
+        if(other.tag=="enemy"){
+            gameManager.Dead();
+        }
     }
 }
