@@ -20,15 +20,18 @@ public class PlaayerMove : MonoBehaviour
     private float deleyfirehi;
     [SerializeField]
     private float barssadeley=0.2f;
-
     [SerializeField]
     private float speed = 5f;
+    private SpriteRenderer spriteRenderer = null;
+    private bool isDamaged=false;
     private Vector2 targerPosition = new Vector2(0,-10);
     private GameManager gameManager = null;
     public GameObject misa;
     Animator animator;
     void Start()
     {
+        
+        spriteRenderer = GetComponent<SpriteRenderer>();    
         gameManager = FindObjectOfType<GameManager>();
         Application.targetFrameRate = 60;
         animator = GetComponent<Animator>();
@@ -46,6 +49,9 @@ public class PlaayerMove : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             targerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targerPosition.x = Mathf.Clamp(targerPosition.x,gameManager.MinPosition.x,gameManager.MaxPosition.x);
+            targerPosition.y = Mathf.Clamp(targerPosition.y,gameManager.MinPosition.y,gameManager.MaxPosition.y);
+            transform.localPosition = Vector2.MoveTowards(transform.localPosition, targerPosition, speed * Time.deltaTime);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -64,7 +70,6 @@ public class PlaayerMove : MonoBehaviour
                 StartCoroutine(dododododo());
         }
         
-        transform.localPosition = Vector2.MoveTowards(transform.localPosition, targerPosition, speed * Time.deltaTime);
     }
     private IEnumerator Fire(){
         GameObject bullet;
@@ -74,6 +79,16 @@ public class PlaayerMove : MonoBehaviour
             bullet.transform.SetParent(null);
             yield return new WaitForSeconds(barssadeley);
         }
+
+    }
+    private IEnumerator Damage(){
+        for(int i=0;i<3;i++){
+            spriteRenderer.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            spriteRenderer.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+        }
+        isDamaged=false;
 
     }
     private IEnumerator Firehihi(){
@@ -102,6 +117,9 @@ public class PlaayerMove : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other){
         if(other.tag=="enemy"){
+            if(isDamaged) return;
+            isDamaged=true;
+            StartCoroutine(Damage());
             gameManager.Dead();
         }
     }
