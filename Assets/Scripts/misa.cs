@@ -8,15 +8,19 @@ public class misa : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-
+    private GameManager gameManager = null;
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         Destroy(gameObject,3);
     }
 
     void Update()
     {
-        transform.position+=Vector3.up*Time.deltaTime*speed;
+        transform.Translate(Vector2.up*Time.deltaTime*speed);
+        if(transform.localPosition.y > gameManager.MaxPosition.y+2){
+            Destroy(gameObject);
+        }
     }
     
     [SerializeField]
