@@ -30,7 +30,7 @@ public class PlaayerMove : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        Application.targetFrameRate = 60;
+        //Application.targetFrameRate = 60;
         animator = GetComponent<Animator>();
         StartCoroutine(Fire());
     }
