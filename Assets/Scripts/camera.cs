@@ -22,8 +22,8 @@ public class camera : MonoBehaviour
     public void LateUpdate()
     {
         target = player.transform.position;
-        float posX = Mathf.SmoothDamp(transform.position.x, target.x, ref velocity.x, 0.5f);
-        float posY = Mathf.SmoothDamp(transform.position.y, target.y + 1f, ref velocity.y, 0.5f);
+        float posX = Mathf.SmoothDamp(transform.position.x, target.x, ref velocity.x, 0.8f);
+        float posY = Mathf.SmoothDamp(transform.position.y, target.y, ref velocity.y, 0.8f);
         transform.position = new Vector3(posX, posY, transform.position.z);
         if (SHAKEtimeremaining > 0)
         {

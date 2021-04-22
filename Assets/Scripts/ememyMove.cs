@@ -14,12 +14,12 @@ public class ememyMove : MonoBehaviour
     [SerializeField]
     private GameObject particle;
     float hp=100;
-    private GameObject camera;
+    private GameObject camerahi;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        camera = GameObject.Find("camera");
+        camerahi = GameObject.Find("camera");
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class ememyMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision){
         if (collision.CompareTag("lazer")){
             Instantiate(particle).transform.position=transform.position;
-            camera.GetComponent<camera>().startshake(1f,1f);
+            camerahi.GetComponent<camera>().startshake(0.3f,0.3f);
             Destroy(gameObject);
         }
         if (collision.CompareTag("Bullet")){
@@ -48,7 +48,7 @@ public class ememyMove : MonoBehaviour
             //hp-=50;
             Instantiate(particle).transform.position=transform.position;
             gameManager.AddScore(score);
-            camera.GetComponent<camera>().startshake(1f,1f);
+            camerahi.GetComponent<camera>().startshake(0.3f,0.3f);
             Destroy(gameObject);
         }
     }
