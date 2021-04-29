@@ -14,7 +14,6 @@ public class camera : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
-        startshake(1f,1f);
         fstzoom = GetComponent<Camera>().orthographicSize;
     }
 

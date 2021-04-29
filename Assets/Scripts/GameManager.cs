@@ -6,6 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                var obj = FindObjectOfType<GameManager>();
+                if (obj != null)
+                    instance = obj;
+                else
+                {
+                    var newSingleton = new GameObject("GameManager").AddComponent<GameManager>();
+                    instance = newSingleton;
+                }
+            }
+            return instance;
+        }
+        private set
+        {
+            instance = value;
+        }
+    }
     [SerializeField]
     private Text textScore=null;
     [SerializeField]
@@ -16,18 +39,29 @@ public class GameManager : MonoBehaviour
     private long score = 0;
     [SerializeField]
     private int life=3;
+    [SerializeField]
+    private GameObject bossSiba;
+    private Coroutine Spawnhihi;
+    private bool isBoss;
     
     public Vector2 MinPosition {get; private set;}
     public Vector2 MaxPosition {get; private set;}
-
+    
     void Start()
     {
         MinPosition = new Vector2(-7f,-13f);
         MaxPosition = new Vector2(7f,13f);
-        StartCoroutine(SpawnCroissant());
+        Spawnhihi = StartCoroutine(SpawnCroissant());
     }
     public void AddScore(long addScore){
         score += addScore;
+        if(score >= 100&&!isBoss){
+            isBoss=true;
+            if(Spawnhihi==null) return;
+            StopCoroutine(Spawnhihi);
+            bossSiba.GetComponent<Animator>().SetTrigger("startBoss");
+            bossSiba.GetComponent<SibaBoss>().StartBoss();
+        }
         UpdateUI();
     }
     public void UpdateUI(){
