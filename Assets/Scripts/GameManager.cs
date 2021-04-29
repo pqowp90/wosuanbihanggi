@@ -42,7 +42,7 @@ private static GameManager instance;
     [SerializeField]
     private GameObject bossSiba;
     private Coroutine Spawnhihi;
-    private bool isBoss;
+    public bool isBoss{get;private set;}
     
     public Vector2 MinPosition {get; private set;}
     public Vector2 MaxPosition {get; private set;}

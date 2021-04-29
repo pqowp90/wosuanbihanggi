@@ -904,6 +904,7 @@ MonoBehaviour:
   enemyCroissantPrefab: {fileID: 8559540226282812842, guid: 5975a4d42365d2b43a22f985cdad58c2, type: 3}
   score: 0
   life: 3
+  bossSiba: {fileID: 2000035866947057280}
 --- !u!1 &1054309118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,7 +1483,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2000035866055367776
 Transform:
@@ -1538,7 +1539,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 735892bc512cfa34c9a47bb327cfd4e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b972b8d2b42c064fb6f781dcc856cba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1546,7 +1547,7 @@ SpriteRenderer:
   m_Size: {x: 6.21, y: 4.86}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2000035866055367779
@@ -1577,6 +1578,7 @@ GameObject:
   - component: {fileID: 2000035866947057287}
   - component: {fileID: 2000035866947057286}
   - component: {fileID: 2000035866947057281}
+  - component: {fileID: 2000035866947057282}
   m_Layer: 0
   m_Name: sibadog (1)
   m_TagString: Untagged
@@ -1594,7 +1596,7 @@ Animator:
   m_GameObject: {fileID: 2000035866947057280}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8489e4ffa477bfb4eb1f93ebe5300ada, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6c2650ad48bc48543ae85e17f726311b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1603,6 +1605,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2000035866947057282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000035866947057280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66028e12a34fb2b4b97ef3f686af7ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &2000035866947057286
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1643,7 +1657,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9faa78da9d53c1440b8445f7bf4f13da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61c429165b485984299f63a4fd08f606, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1651,7 +1665,7 @@ SpriteRenderer:
   m_Size: {x: 5.14, y: 5.69}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2000035866947057287
@@ -1662,10 +1676,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000035866947057280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 17.88, z: 0}
+  m_LocalPosition: {x: -0.08, y: 18.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2000035866055367776}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

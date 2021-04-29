@@ -31,7 +31,7 @@ public class ememyMove : MonoBehaviour
 
     void Update()
     {
-        
+        if(gameManager.isBoss) StartCoroutine(Dead());
         if(isDead) return;
         if(transform.localPosition.y<gameManager.MinPosition.y-2){
             Destroy(gameObject);
