@@ -62,7 +62,7 @@ private static GameManager instance;
     }
     public void AddScore(long addScore){
         score += addScore;
-        if(score >= 200&&!isBoss){
+        if(score >= 20&&!isBoss){
             isBoss=true;
             if(Spawnhihi==null) return;
             StopCoroutine(Spawnhihi);
