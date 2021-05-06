@@ -29,6 +29,7 @@ private static GameManager instance;
             instance = value;
         }
     }
+    public PlaayerMove player{get; private set;}
     [SerializeField]
     private Text textScore=null;
     [SerializeField]
@@ -36,12 +37,15 @@ private static GameManager instance;
     [SerializeField]
     private GameObject enemyCroissantPrefab;
     [SerializeField]
+    private GameObject enemyHotdogPrefab;
+    [SerializeField]
     private long score = 0;
     [SerializeField]
     private int life=3;
     [SerializeField]
     private GameObject bossSiba;
     private Coroutine Spawnhihi;
+    private Coroutine Spawnhihihi;
     public bool isBoss{get;private set;}
     
     public Vector2 MinPosition {get; private set;}
@@ -49,9 +53,12 @@ private static GameManager instance;
     
     void Start()
     {
+        //player = GameObject.Find("Player");
+        player = FindObjectOfType<PlaayerMove>();
         MinPosition = new Vector2(-7f,-13f);
         MaxPosition = new Vector2(7f,13f);
         Spawnhihi = StartCoroutine(SpawnCroissant());
+        Spawnhihihi = StartCoroutine(SpawnHotdog());
     }
     public void AddScore(long addScore){
         score += addScore;
@@ -59,6 +66,8 @@ private static GameManager instance;
             isBoss=true;
             if(Spawnhihi==null) return;
             StopCoroutine(Spawnhihi);
+            if(Spawnhihihi==null) return;
+            StopCoroutine(Spawnhihihi);
             bossSiba.GetComponent<Animator>().SetTrigger("startBoss");
             bossSiba.GetComponent<SibaBoss>().StartBoss();
         }
@@ -88,6 +97,21 @@ private static GameManager instance;
                 yield return new WaitForSeconds(0.2f);
                 Instantiate(enemyCroissantPrefab, new Vector2(RandomX,20f),Quaternion.identity);
             }
+            yield return new WaitForSeconds(spawnDeley);
+        }
+    }
+    private IEnumerator SpawnHotdog(){
+        while(true){
+            
+            float spawnDeley = 0f;
+            spawnDeley = Random.Range(4f,7f);
+            int RandomX = 1;
+            RandomX = Random.Range(-1,1);
+            if(RandomX==0)
+                RandomX = 1;
+        
+            yield return new WaitForSeconds(0.2f);
+            Instantiate(enemyHotdogPrefab, new Vector2(RandomX*9f,5f),Quaternion.identity);
             yield return new WaitForSeconds(spawnDeley);
         }
     }

@@ -902,6 +902,7 @@ MonoBehaviour:
   textScore: {fileID: 349887139}
   textLife: {fileID: 461446326}
   enemyCroissantPrefab: {fileID: 8559540226282812842, guid: 5975a4d42365d2b43a22f985cdad58c2, type: 3}
+  enemyHotdogPrefab: {fileID: 6648299866635778853, guid: 5dbe20eb42074b341a7ed51792be21cc, type: 3}
   score: 0
   life: 3
   bossSiba: {fileID: 2000035866947057280}

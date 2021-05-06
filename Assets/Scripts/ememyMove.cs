@@ -10,33 +10,54 @@ public class ememyMove : MonoBehaviour
     [SerializeField]
     private bool isdamaged;
     [SerializeField]
-    private float speed;
+    protected float speed;
     [SerializeField]
     private GameObject particle;
+    [SerializeField]
+    private GameObject exeplosion;
     float hp=100;
     private GameObject camerahi;
     private Animator animator;
     private bool isDead=false;
     private Collider2D col =null;
     private SpriteRenderer spriteRenderer;
-    void Start()
+    private bool chkhihi;
+    protected int movemove;
+    private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         camerahi = GameObject.Find("camera");
         animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        movemove=(transform.position.x>0)?1:-1;
     }
 
-    void Update()
+    private void Update()
     {
-        if(gameManager.isBoss) StartCoroutine(Dead());
+        if(chkhihi) return;
+        if(GameManager.Instance.isBoss) {StartCoroutine(Dead());chkhihi=true;}
         if(isDead) return;
-        if(transform.localPosition.y<gameManager.MinPosition.y-2){
+        
+        //transform.position+=Vector3.down*Time.deltaTime*speed;
+        ChkLimit();
+        Move();
+    }
+    private void ChkLimit(){
+        if(transform.localPosition.y<GameManager.Instance.MinPosition.y){
             Destroy(gameObject);
         }
-        //transform.position+=Vector3.down*Time.deltaTime*speed;
+        if(transform.localPosition.y>GameManager.Instance.MinPosition.y+50f){
+            Destroy(gameObject);
+        }
+        if(transform.localPosition.x<GameManager.Instance.MinPosition.x-20f){
+            Destroy(gameObject);
+        }
+        if(transform.localPosition.x>GameManager.Instance.MinPosition.x+20f){
+            Destroy(gameObject);
+        }
+    }
+    protected virtual void Move(){
         transform.Translate(Vector3.down*Time.deltaTime*speed);
     }
     private void OnTriggerEnter2D(Collider2D collision){
@@ -56,20 +77,21 @@ public class ememyMove : MonoBehaviour
             }
             //hp-=50;
             Instantiate(particle).transform.position=transform.position;
-            gameManager.AddScore(score);
+            GameManager.Instance.AddScore(score);
             camerahi.GetComponent<camera>().startshake(0.2f,0.3f);
             StartCoroutine(Dead());
         }
     }
-    private IEnumerator Dead(){
+    protected IEnumerator Dead(){
         spriteRenderer.material.SetColor("_Color",new Color(0f,0f,0f,0f));
         col.enabled = false;
         animator.Play("Explosion");
         isDead = true;
+        Instantiate(exeplosion).transform.position = transform.position;
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
-    private  IEnumerator damaged(){
+    private IEnumerator damaged(){
         hp-=50;
         spriteRenderer.material.SetColor("_Color",new Color(1f,1f,1f,0f));
         yield return new WaitForSeconds(0.1f);
