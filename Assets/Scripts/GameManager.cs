@@ -35,11 +35,13 @@ private static GameManager instance;
     [SerializeField]
     private Text textLife=null;
     [SerializeField]
+    private Text textBestScore=null;
+    [SerializeField]
     private GameObject enemyCroissantPrefab;
     [SerializeField]
     private GameObject enemyHotdogPrefab;
-    [SerializeField]
     private long score = 0;
+    private long bestScore = 0;
     [SerializeField]
     private int life=3;
     [SerializeField]
@@ -53,6 +55,7 @@ private static GameManager instance;
     
     void Start()
     {
+        bestScore = PlayerPrefs.GetInt("BEST");
         //player = GameObject.Find("Player");
         player = FindObjectOfType<PlaayerMove>();
         MinPosition = new Vector2(-7f,-13f);
@@ -62,7 +65,14 @@ private static GameManager instance;
     }
     public void AddScore(long addScore){
         score += addScore;
-        if(score >= 20&&!isBoss){
+        if(bestScore<score){
+            bestScore = score;
+            PlayerPrefs.SetInt("BEST",(int)bestScore);
+        }
+        UpdateUI();
+        if(bossSiba==null) return;
+        if(score >= 200&&!isBoss){
+            bossSiba.SetActive(true);
             isBoss=true;
             if(Spawnhihi==null) return;
             StopCoroutine(Spawnhihi);
@@ -71,15 +81,16 @@ private static GameManager instance;
             bossSiba.GetComponent<Animator>().SetTrigger("startBoss");
             bossSiba.GetComponent<SibaBoss>().StartBoss();
         }
-        UpdateUI();
     }
     public void UpdateUI(){
         //textScore.text = "SCORE\n"+score.ToString();
          textScore.text = string.Format("SCORE\n{0}",score);
+         textLife.text = string.Format("LIFE\n{0}",life);
+         textBestScore.text = string.Format("BEST\n{0}",bestScore);
     }
     public void Dead(){
         life--;
-        textLife.text = string.Format("LIFE\n{0}",life);
+        UpdateUI();
         if(life<=0){
             SceneManager.LoadScene("gameover");
         }
@@ -114,6 +125,11 @@ private static GameManager instance;
             Instantiate(enemyHotdogPrefab, new Vector2(RandomX*9f,5f),Quaternion.identity);
             yield return new WaitForSeconds(spawnDeley);
         }
+    }
+    public void StartGoGo(){
+        isBoss=false;
+        Spawnhihi = StartCoroutine(SpawnCroissant());
+        Spawnhihihi = StartCoroutine(SpawnHotdog());
     }
 
 

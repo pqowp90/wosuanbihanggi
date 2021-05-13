@@ -8,6 +8,8 @@ public class SibaBoss : MonoBehaviour
 {
     [SerializeField]
     private GameObject bulletPrefab;
+    [SerializeField]
+    private GameObject exeplosion;
     private float rotationZ = 0f;
     [SerializeField]
     private Slider hpBar;
@@ -15,12 +17,17 @@ public class SibaBoss : MonoBehaviour
     private Sprite NextSprite1;
     [SerializeField]
     private Sprite NextSprite2;
+    [SerializeField]
+    private Sprite NextSprite3;
     float duration=2f,strength=0.7f;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Vector2 diff = Vector2.zero;
     private float bossHp=200f;
     GameObject bullet;
+    private Coroutine bossCo,bossCo2;
+    private bool Dead;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -36,19 +43,52 @@ public class SibaBoss : MonoBehaviour
             Destroy(other);
             bossHp--;
             if(bossHp<=0){
-
+                if(Dead)return;
+                Dead=true;
+                hpBar.gameObject.SetActive(false);
+                transform.DOMove(new Vector3(-0.08f,18.72f,0f),5f);
+                StopAllCoroutines();
+                spriteRenderer.sprite = NextSprite3;
+                for(int i=0;i<10;i++){
+                    Instantiate(exeplosion).transform.position = transform.position + new Vector3(Random.Range(-5f,5f),Random.Range(-5f,5f),0f);
+                }
+                StartCoroutine(inpiniti());
+            }
+            hpBar.value = bossHp/200f;
+        }
+        if(other.CompareTag("lazer")){
+            bossHp-=10;
+            if(bossHp<=0){
+                if(Dead)return;
+                Dead=true;
+                hpBar.gameObject.SetActive(false);
+                transform.DOMove(new Vector3(-0.08f,18.72f,0f),5f);
+                StopAllCoroutines();
+                spriteRenderer.sprite = NextSprite3;
+                for(int i=0;i<10;i++){
+                    Instantiate(exeplosion).transform.position = transform.position + new Vector3(Random.Range(-5f,5f),Random.Range(-5f,5f),0f);
+                }
+                StartCoroutine(inpiniti());
             }
             hpBar.value = bossHp/200f;
         }
     }
+    private IEnumerator inpiniti(){
+        yield return new WaitForSeconds(5f);
+        animator.enabled=true;
+        animator.Play("무한");
+        yield return new WaitForSeconds(2f);
+        GameManager.Instance.StartGoGo();
+        Destroy(gameObject);
+    }
     public void StartBoss(){
-        StartCoroutine(Boss());
+        bossCo=StartCoroutine(Boss());
     }
     private  IEnumerator Boss(){
         yield return new WaitForSeconds(3.3f);
         animator.enabled=false;
         hpBar.gameObject.SetActive(true);
-        StartCoroutine(BossAttack11());
+        bossCo2=StartCoroutine(BossAttack11());
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(BossAttack3());
         yield return new WaitForSeconds(2.5f);

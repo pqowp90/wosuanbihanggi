@@ -66,6 +66,7 @@ public class ememyMove : MonoBehaviour
             Instantiate(particle).transform.position=transform.position;
             camerahi.GetComponent<camera>().startshake(0.2f,0.3f);
             StartCoroutine(Dead());
+            GameManager.Instance.AddScore(score);
         }
         if (collision.CompareTag("Bullet")){
             Destroy(collision.gameObject);
