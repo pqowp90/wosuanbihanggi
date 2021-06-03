@@ -1269,6 +1269,7 @@ MonoBehaviour:
   enemyHotdogPrefab: {fileID: 6648299866635778853, guid: 5dbe20eb42074b341a7ed51792be21cc, type: 3}
   life: 3
   bossSiba: {fileID: 2000035866947057280}
+  addSpeed: 0
 --- !u!1 &1054309118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,6 +1732,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866369970}
   m_CullTransparentMesh: 1
+--- !u!1 &1874141953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874141955}
+  - component: {fileID: 1874141954}
+  m_Layer: 0
+  m_Name: poolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1874141954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874141953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d4c8d82bdb9fc448c6979cb90b7a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1874141955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874141953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1997650209
 GameObject:
   m_ObjectHideFlags: 0

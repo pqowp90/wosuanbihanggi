@@ -52,8 +52,11 @@ private static GameManager instance;
     
     public Vector2 MinPosition {get; private set;}
     public Vector2 MaxPosition {get; private set;}
+    public float addSpeed;
+    public poolManager poolManager{get; private set;}
+
     
-    void Start()
+    void Awake()
     {
         bestScore = PlayerPrefs.GetInt("BEST");
         //player = GameObject.Find("Player");
@@ -61,7 +64,11 @@ private static GameManager instance;
         MinPosition = new Vector2(-7f,-13f);
         MaxPosition = new Vector2(7f,13f);
         Spawnhihi = StartCoroutine(SpawnCroissant());
-        Spawnhihihi = StartCoroutine(SpawnHotdog());
+        poolManager = FindObjectOfType<poolManager>();
+        //Spawnhihihi = StartCoroutine(SpawnHotdog());
+    }
+    private void Update() {
+        addSpeed+=Time.deltaTime;    
     }
     public void AddScore(long addScore){
         score += addScore;

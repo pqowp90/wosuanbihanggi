@@ -25,6 +25,7 @@ public class ememyMove : MonoBehaviour
     protected int movemove;
     private void Start()
     {
+        speed *= 1+(GameManager.Instance.addSpeed/40);
         gameManager = FindObjectOfType<GameManager>();
         camerahi = GameObject.Find("camera");
         animator = GetComponent<Animator>();
@@ -69,7 +70,7 @@ public class ememyMove : MonoBehaviour
             GameManager.Instance.AddScore(score);
         }
         if (collision.CompareTag("Bullet")){
-            Destroy(collision.gameObject);
+            collision.GetComponent<misa>().Despawn();
             if(hp>0){
                 if (isdamaged) return;
                 isdamaged=true;

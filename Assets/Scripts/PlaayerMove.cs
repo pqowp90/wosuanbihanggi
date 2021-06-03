@@ -72,14 +72,25 @@ public class PlaayerMove : MonoBehaviour
         
     }
     private IEnumerator Fire(){
-        GameObject bullet;
-
         while(true){
-            bullet = Instantiate(bulletPrefab,bulletPosition);
-            bullet.transform.SetParent(null);
+            SpawnOrInstantiate();
             yield return new WaitForSeconds(barssadeley);
         }
 
+    }
+    private void SpawnOrInstantiate(){
+        GameObject bullet=null;
+        if(GameManager.Instance.poolManager.transform.childCount>0){
+            bullet = GameManager.Instance.poolManager.transform.GetChild(0).gameObject;
+            bullet.transform.SetParent(bulletPosition);
+            bullet.transform.position = bulletPosition.position;
+            bullet.SetActive(true);
+        }else{
+        bullet = Instantiate(bulletPrefab,bulletPosition);
+        }
+        if(bullet != null){
+            bullet.transform.SetParent(null);
+        }
     }
     private IEnumerator Damage(){
         for(int i=0;i<3;i++){
