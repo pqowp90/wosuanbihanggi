@@ -214,4 +214,5 @@ MonoBehaviour:
   exeplosion: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
   bulletPrefab: {fileID: 4874206591903569141, guid: 7bb7aab4cbf793a43ae1a21e7c1d8e17, type: 3}
   speedhi: 5
-  fireRate: 0.5
+  fireRate: 0.3
+  image: {fileID: 21300000, guid: cbe141d75a0746443948145468565b38, type: 3}

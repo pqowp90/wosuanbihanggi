@@ -54,6 +54,7 @@ private static GameManager instance;
     public Vector2 MaxPosition {get; private set;}
     public float addSpeed;
     public poolManager poolManager{get; private set;}
+    
 
     
     void Awake()
@@ -65,7 +66,7 @@ private static GameManager instance;
         MaxPosition = new Vector2(7f,13f);
         Spawnhihi = StartCoroutine(SpawnCroissant());
         poolManager = FindObjectOfType<poolManager>();
-        //Spawnhihihi = StartCoroutine(SpawnHotdog());
+        Spawnhihihi = StartCoroutine(SpawnHotdog());
     }
     private void Update() {
         addSpeed+=Time.deltaTime;    

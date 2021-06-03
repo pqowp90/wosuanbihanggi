@@ -3,7 +3,13 @@ guid: 0fb53e797b819de4095ce2ce520ebfec
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletPosition: {instanceID: 0}
+  - bulletPrefab: {instanceID: 0}
+  - dadadadadada: {instanceID: 0}
+  - jumug: {instanceID: 0}
+  - image: {fileID: 21300000, guid: 0e06e6467055e124a88ddff247db4168, type: 3}
+  - misa: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

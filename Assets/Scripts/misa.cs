@@ -7,8 +7,9 @@ using UnityEngine;
 public class misa : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    public float speed;
     private GameManager gameManager = null;
+    
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();

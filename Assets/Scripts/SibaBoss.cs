@@ -19,6 +19,8 @@ public class SibaBoss : MonoBehaviour
     private Sprite NextSprite2;
     [SerializeField]
     private Sprite NextSprite3;
+    [SerializeField]
+    private Sprite image;
     float duration=2f,strength=0.7f;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -39,8 +41,8 @@ public class SibaBoss : MonoBehaviour
         
     }
     private void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Bullet")){
-            Destroy(other);
+        if(other.gameObject.layer==7){
+            other.GetComponent<misa>().Despawn();
             bossHp--;
             if(bossHp<=0){
                 if(Dead)return;
@@ -119,7 +121,7 @@ public class SibaBoss : MonoBehaviour
         spriteRenderer.sprite = NextSprite2;
         transform.DOShakePosition(duration,strength,18,90f,false,false);
         for(int i=0;i<10;i++){
-             bullet = Instantiate(bulletPrefab);
+             bullet = SpawnOrInstantiate();
             bullet.transform.position= transform.position;
             bullet.transform.rotation = Quaternion.Euler(0f,0f,100f+i*(150f/10f));
             yield return new WaitForSeconds(2f/20f);
@@ -130,7 +132,7 @@ public class SibaBoss : MonoBehaviour
         spriteRenderer.sprite = NextSprite2;
         transform.DOShakePosition(duration,strength,18,90f,false,false);
         for(int i=0;i<20;i++){
-             bullet = Instantiate(bulletPrefab);
+             bullet = SpawnOrInstantiate();
             bullet.transform.position= transform.position;
             bullet.transform.rotation = Quaternion.Euler(0f,0f,100f+i*(150f/10f));
             yield return new WaitForSeconds(2f/20f);
@@ -141,7 +143,7 @@ public class SibaBoss : MonoBehaviour
         spriteRenderer.sprite = NextSprite2;
         transform.DOShakePosition(duration,strength,18,90f,false,false);
         for(int i=0;i<20;i++){
-             bullet = Instantiate(bulletPrefab);
+             bullet = SpawnOrInstantiate();
             bullet.transform.position= transform.position;
             bullet.transform.rotation = Quaternion.Euler(0f,0f,(i<10)?100f+i*(150f/10f):250-(i-10)*(150f/10f));
             yield return new WaitForSeconds(2f/20f);
@@ -152,7 +154,7 @@ public class SibaBoss : MonoBehaviour
         spriteRenderer.sprite = NextSprite2;
         transform.DOShakePosition(duration,strength,18,90f,false,false);
         for(int i=0;i<20;i++){
-             bullet = Instantiate(bulletPrefab);
+             bullet = SpawnOrInstantiate();
             bullet.transform.position= transform.position;
             bullet.transform.rotation = Quaternion.Euler(0f,0f,100f+Random.Range(0f,150f));
             yield return new WaitForSeconds(2f/20f);
@@ -161,7 +163,7 @@ public class SibaBoss : MonoBehaviour
     }
     private  IEnumerator BossAttack11(){
         while(true){
-            bullet = Instantiate(bulletPrefab,transform);
+            bullet = SpawnOrInstantiate();
             diff = GameManager.Instance.player.transform.position - transform.position;
             diff.Normalize();
             rotationZ = Mathf.Atan2(diff.y,diff.x)*Mathf.Rad2Deg;
@@ -169,5 +171,24 @@ public class SibaBoss : MonoBehaviour
             bullet.transform.parent=null;
             yield return new WaitForSeconds(0.3f);
         }
+    }
+    private GameObject SpawnOrInstantiate(){
+        GameObject bullet=null;
+        if(GameManager.Instance.poolManager.transform.childCount>0){
+            bullet = GameManager.Instance.poolManager.transform.GetChild(0).gameObject;
+            bullet.transform.SetParent(transform);
+            bullet.transform.position = transform.position;
+            bullet.layer = 8;
+            bullet.SetActive(true);
+        }else{
+        bullet = Instantiate(bulletPrefab,transform);
+        }
+        if(bullet != null){
+            bullet.transform.SetParent(null);
+            bullet.layer = 8;
+            bullet.GetComponent<misa>().speed = 15;
+            bullet.GetComponent<SpriteRenderer>().sprite = image;
+        }
+        return bullet;
     }
 }

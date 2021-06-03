@@ -69,7 +69,7 @@ public class ememyMove : MonoBehaviour
             StartCoroutine(Dead());
             GameManager.Instance.AddScore(score);
         }
-        if (collision.CompareTag("Bullet")){
+        if (collision.gameObject.layer==7){
             collision.GetComponent<misa>().Despawn();
             if(hp>0){
                 if (isdamaged) return;

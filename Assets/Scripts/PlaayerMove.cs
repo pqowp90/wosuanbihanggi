@@ -22,6 +22,8 @@ public class PlaayerMove : MonoBehaviour
     private float barssadeley=0.2f;
     [SerializeField]
     private float speed = 5f;
+    [SerializeField]
+    private Sprite image;
     private SpriteRenderer spriteRenderer = null;
     private bool isDamaged=false;
     private Vector2 targerPosition = new Vector2(0,-10);
@@ -90,6 +92,10 @@ public class PlaayerMove : MonoBehaviour
         }
         if(bullet != null){
             bullet.transform.SetParent(null);
+            bullet.layer = 7;
+            bullet.transform.rotation = Quaternion.Euler(0f,0f,0f);
+            bullet.GetComponent<misa>().speed = 20;
+            bullet.GetComponent<SpriteRenderer>().sprite = image;
         }
     }
     private IEnumerator Damage(){
