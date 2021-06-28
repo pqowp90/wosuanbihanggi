@@ -17,21 +17,22 @@ public class ememyMove : MonoBehaviour
     private GameObject exeplosion;
     float hp=100;
     private GameObject camerahi;
-    private Animator animator;
     private bool isDead=false;
     private Collider2D col =null;
     private SpriteRenderer spriteRenderer;
-    private bool chkhihi;
+    private bool chkhihi=false;
     protected int movemove;
-    private void Start()
+    protected Camera playerCamera;
+    protected void Start()
     {
+        movemove=(transform.position.x>0)?1:-1;
+        playerCamera = GameManager.Instance.playerCamera;
         speed *= 1+(GameManager.Instance.addSpeed/40);
         gameManager = FindObjectOfType<GameManager>();
         camerahi = GameObject.Find("camera");
-        animator = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        movemove=(transform.position.x>0)?1:-1;
+        
     }
 
     private void Update()
@@ -41,6 +42,7 @@ public class ememyMove : MonoBehaviour
         if(isDead) return;
         
         //transform.position+=Vector3.down*Time.deltaTime*speed;
+        
         ChkLimit();
         Move();
     }
@@ -70,7 +72,8 @@ public class ememyMove : MonoBehaviour
             GameManager.Instance.AddScore(score);
         }
         if (collision.gameObject.layer==7){
-            collision.GetComponent<misa>().Despawn();
+            if(collision.GetComponent<misa>()!=null)
+                collision.GetComponent<misa>().Despawn();
             if(hp>0){
                 if (isdamaged) return;
                 isdamaged=true;
@@ -87,7 +90,6 @@ public class ememyMove : MonoBehaviour
     protected IEnumerator Dead(){
         spriteRenderer.material.SetColor("_Color",new Color(0f,0f,0f,0f));
         col.enabled = false;
-        animator.Play("Explosion");
         isDead = true;
         Instantiate(exeplosion).transform.position = transform.position;
         yield return new WaitForSeconds(0.5f);

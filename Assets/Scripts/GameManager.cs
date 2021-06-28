@@ -54,6 +54,7 @@ private static GameManager instance;
     public Vector2 MaxPosition {get; private set;}
     public float addSpeed;
     public poolManager poolManager{get; private set;}
+    public Camera playerCamera;
     
 
     
@@ -109,10 +110,11 @@ private static GameManager instance;
             float spawnDeley = 0f;
             spawnDeley = Random.Range(2f,5f);
             float RandomX = 0f;
-            RandomX = Random.Range(-7f,7f);
+            
 
         
             for(int i=0;i<6;i++){
+                RandomX = Random.Range(-7f,7f);
                 yield return new WaitForSeconds(0.2f);
                 Instantiate(enemyCroissantPrefab, new Vector2(RandomX,20f),Quaternion.identity);
             }
