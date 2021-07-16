@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlaayerMove : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class PlaayerMove : MonoBehaviour
     private GameManager gameManager = null;
     public GameObject misa;
     Animator animator;
+    [SerializeField]
+    private Image[] imageButton;
     void Start()
     {
         
@@ -48,7 +52,10 @@ public class PlaayerMove : MonoBehaviour
             deleyfirehi-=Time.deltaTime;
         if (deleydododododo>0f)
             deleydododododo-=Time.deltaTime;
-        if (Input.GetMouseButton(0))
+        imageButton[0].fillAmount = 1f-deleydadada/14f;
+        imageButton[1].fillAmount = 1f-deleyfirehi/30f;
+        imageButton[2].fillAmount = 1f-deleydododododo/9f;
+        if (Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject())
         {
             targerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targerPosition.x = Mathf.Clamp(targerPosition.x,gameManager.MinPosition.x,gameManager.MaxPosition.x);
@@ -72,6 +79,18 @@ public class PlaayerMove : MonoBehaviour
                 StartCoroutine(dododododo());
         }
         
+    }
+    public void sk1(){
+        if (deleydododododo<=0f)   
+                StartCoroutine(dododododo());
+    }
+    public void sk2(){
+        if (deleydadada<=0f)   
+                StartCoroutine(dadada());
+    }
+    public void sk3(){
+        if (deleyfirehi<=0f)
+                StartCoroutine(Firehihi());
     }
     private IEnumerator Fire(){
         while(true){
@@ -109,7 +128,7 @@ public class PlaayerMove : MonoBehaviour
 
     }
     private IEnumerator Firehihi(){
-        deleyfirehi=7;
+        deleyfirehi=30;
         jumug.SetActive(true);
         animator.SetTrigger("때렸다");
         yield return new WaitForSeconds(1f);
@@ -118,7 +137,7 @@ public class PlaayerMove : MonoBehaviour
 
     }
     private IEnumerator dododododo(){
-        deleydododododo=5;
+        deleydododododo=9;
         animator.SetBool("기관총발싸",true);
         barssadeley = 0.05f;
         yield return new WaitForSeconds(4f);
@@ -126,7 +145,7 @@ public class PlaayerMove : MonoBehaviour
         barssadeley = 0.2f;
     }
     private IEnumerator dadada(){
-        deleydadada=5;
+        deleydadada=14;
         dadadadadada.SetActive(true);
         yield return new WaitForSeconds(4f);
         dadadadadada.SetActive(false);

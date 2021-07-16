@@ -80,7 +80,7 @@ private static GameManager instance;
         }
         UpdateUI();
         if(bossSiba==null) return;
-        if(score >= 200&&!isBoss){
+        if(score >= 400&&!isBoss){
             bossSiba.SetActive(true);
             isBoss=true;
             if(Spawnhihi==null) return;
